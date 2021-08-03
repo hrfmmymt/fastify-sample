@@ -1,8 +1,8 @@
-const fastify = require("fastify")({ logger: true });
-
-fastify.get("/", async (request, reply) => {
-  reply.send({ hello: "world" });
+const fastify = require("fastify")({
+  logger: true,
 });
+
+fastify.register(require("./our-first-route"));
 
 fastify.listen(3000, (err, address) => {
   if (err) {
