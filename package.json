@@ -12,5 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "fastify": "^3.19.2"
+  },
+  "devDependencies": {
+    "fastify-mongodb": "^4.0.0",
+    "fastify-plugin": "^3.0.0"
   }
 }
