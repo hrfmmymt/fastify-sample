@@ -19,17 +19,13 @@
     <meta name="twitter:image" content="">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="">
-    <link href="icon" rel="shortcut icon">
+    {# <link href="icon" rel="shortcut icon">
     <link href="icon" rel="image_src">
     <link href="icon" rel="icon" type="image/png">
-    <link href="icon" rel="apple-touch-icon">
-    {# <link rel="stylesheet" href="./css/style.css"> #}
+    <link href="icon" rel="apple-touch-icon"> #}
+    <link rel="stylesheet" href="./css/style.css">
 </head>
   <body>
-    <ul>
-    {% for item in postList %}
-      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
-    {% endfor %}
-    </ul>
+    {{post.contents}}
   </body>
 </html>
