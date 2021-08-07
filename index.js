@@ -1,35 +1,37 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-const fastify = require("fastify")({
+const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true,
 });
-const marked = require("marked");
+const marked = require('marked');
 
 const config = {
-  mdDir: path.join(__dirname, "/post/"),
+  mdDir: path.join(__dirname, '/post/'),
 };
 
 marked.setOptions({
   gfm: true,
 });
 
-function getPostInfo(mdName, withHtml) {
+function getPostInfo(fileName, withHtml) {
   return new Promise((resolve, reject) => {
-    fs.readFile(config.mdDir + mdName, "utf-8", (err, md) => {
+    fs.readFile(config.mdDir + fileName, 'utf-8', (err, md) => {
       if (err) {
         return reject(err);
       }
       const postTitle = md.match(/^#\s(.)+\n/)[0].match(/[^#\n\s]+/);
-      const postDescription = md.match(/\n>(.)+\n/)[0].match(/[^>\n\s]+/);
+      const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
+      const postDescription = md.match(/\n\*desc>(.)+\n/)[0].match(/[^>\n\s]+/);
       marked.setOptions({
         gfm: true,
       });
       resolve({
         title: postTitle[0],
-        description: postDescription[0],
-        url: mdName,
+        date: postDate ?? postDate[1],
+        description: postDescription ?? postDescription[1],
+        url: fileName.replace(/.md/g, ''),
         html: withHtml ? marked(md) : null,
       });
     });
@@ -38,26 +40,26 @@ function getPostInfo(mdName, withHtml) {
 
 const schema = {
   querystring: {
-    name: { type: "string" },
-    excitement: { type: "integer" },
+    name: { type: 'string' },
+    excitement: { type: 'integer' },
   },
   response: {
     200: {
-      type: "object",
+      type: 'object',
       properties: {
-        title: { type: "string" },
+        title: { type: 'string' },
       },
     },
   },
 };
 
-fastify.register(require("point-of-view"), {
+fastify.register(require('point-of-view'), {
   engine: {
-    nunjucks: require("nunjucks"),
+    nunjucks: require('nunjucks'),
   },
 });
 
-fastify.get("/", { schema }, (_req, reply) => {
+fastify.get('/', { schema }, (_req, reply) => {
   return new Promise((resolve, reject) => {
     fs.readdir(config.mdDir, (err, mdFiles) => {
       if (err) throw err;
@@ -66,11 +68,11 @@ fastify.get("/", { schema }, (_req, reply) => {
         getPostInfo(mdFiles[i], false).then((postInfo) => {
           postsInfo.push(postInfo);
           if (i === mdFiles.length - 1) {
-            reply.view("./templates/index.njk", {
+            reply.view('./templates/index.njk', {
               head: {
-                title: "headTtl",
-                url: "",
-                description: "",
+                title: 'headTtl',
+                url: '',
+                description: '',
               },
               postList: postsInfo,
             });
@@ -81,22 +83,22 @@ fastify.get("/", { schema }, (_req, reply) => {
   });
 });
 
-fastify.get("/:post", (req, reply) => {
+fastify.get('/:post', (req, reply) => {
   const file = path.format({
     name: req.params.post,
-    ext: ".md",
+    ext: '.md',
   });
 
   getPostInfo(file, true).then((postInfo) => {
-    reply.view("./templates/post.njk", {
+    reply.view('./templates/post.njk', {
       postList: false,
       head: {
         title: postInfo.title,
         url: postInfo.url,
         description: postInfo.description,
-        fbimg: "hoge.jpg",
-        twimg: "hoge.jpg",
-        twaccount: "@hogehoge",
+        fbimg: 'hoge.jpg',
+        twimg: 'hoge.jpg',
+        twaccount: '@hogehoge',
       },
       post: {
         contents: postInfo.html,
