@@ -8,7 +8,16 @@ const fastify = require('fastify')({
 const marked = require('marked');
 
 const config = {
-  mdDir: path.join(__dirname, '/post/'),
+  postDir: path.join(__dirname, '/post/'),
+};
+
+const metadata = {
+  author: 'hrfmmymt',
+  copyright:
+    'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
+  ogImage: 'og_img.jpg',
+  twitterSite: '@hrfmmymt',
+  twitterCard: 'summary',
 };
 
 marked.setOptions({
@@ -17,16 +26,17 @@ marked.setOptions({
 
 function getPostInfo(fileName, withHtml) {
   return new Promise((resolve, reject) => {
-    fs.readFile(config.mdDir + fileName, 'utf-8', (err, md) => {
-      if (err) {
-        return reject(err);
-      }
+    fs.readFile(config.postDir + fileName, 'utf-8', (err, md) => {
+      if (err) reject(err);
+
       const postTitle = md.match(/^#\s(.)+\n/)[0].match(/[^#\n\s]+/);
       const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
       const postDescription = md.match(/\n\*desc>(.)+\n/)[0].match(/[^>\n\s]+/);
+
       marked.setOptions({
         gfm: true,
       });
+
       resolve({
         title: postTitle[0],
         date: postDate ?? postDate[1],
@@ -61,7 +71,7 @@ fastify.register(require('point-of-view'), {
 
 fastify.get('/', { schema }, (_req, reply) => {
   return new Promise((resolve, reject) => {
-    fs.readdir(config.mdDir, (err, mdFiles) => {
+    fs.readdir(config.postDir, (err, mdFiles) => {
       if (err) throw err;
       const postsInfo = [];
       mdFiles.forEach((_, i) => {
@@ -73,6 +83,9 @@ fastify.get('/', { schema }, (_req, reply) => {
                 title: 'headTtl',
                 url: '',
                 description: '',
+                ogImage: metadata.ogImage,
+                twitterSite: metadata.twitterSite,
+                twitterCard: metadata.twitterSite,
               },
               postList: postsInfo,
             });
@@ -89,6 +102,12 @@ fastify.get('/:post', (req, reply) => {
     ext: '.md',
   });
 
+  try {
+    fs.statSync(config.postDir + file);
+  } catch (err) {
+    if (err.code === 'ENOENT') reply.code(404).send(new Error('Missing this'));
+  }
+
   getPostInfo(file, true).then((postInfo) => {
     reply.view('./templates/post.njk', {
       postList: false,
@@ -96,9 +115,9 @@ fastify.get('/:post', (req, reply) => {
         title: postInfo.title,
         url: postInfo.url,
         description: postInfo.description,
-        fbimg: 'hoge.jpg',
-        twimg: 'hoge.jpg',
-        twaccount: '@hogehoge',
+        ogImage: metadata.ogImage,
+        twitterSite: metadata.twitterSite,
+        twitterCard: metadata.twitterSite,
       },
       post: {
         contents: postInfo.html,
