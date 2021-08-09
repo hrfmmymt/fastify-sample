@@ -4,7 +4,7 @@ const marked = require('marked');
 
 const postDir = path.join(__dirname, '../post/');
 
-function getPostInfo(fileName) {
+const getPostInfo = (fileName, withHtml) => {
   return new Promise((resolve, reject) => {
     fs.readFile(postDir + fileName, 'utf-8', (err, md) => {
       if (err) return reject(err);
@@ -24,10 +24,13 @@ function getPostInfo(fileName) {
         description: postDescription[1],
         date: postDate[1],
         url: fileName.replace(/.md/g, ''),
+        html: withHtml ? marked(md) : null,
       });
     });
   });
-}
+};
+
+module.exports = getPostInfo;
 
 async function sortPostsList() {
   const dist = path.join(__dirname, '../');
