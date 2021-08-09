@@ -25,34 +25,6 @@ const metadata = {
   twitterCard: 'summary',
 };
 
-// marked.setOptions({
-//   gfm: true,
-// });
-
-// function getPostInfo(fileName, withHtml) {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(config.postDir + fileName, 'utf-8', (err, md) => {
-//       if (err) reject(err);
-
-//       const postTitle = md.match(/^#\s(.)+\n/)[0].match(/[^#\n\s]+/);
-//       const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
-//       const postDescription = md.match(/\n\*desc>(.)+\n/)[0].match(/[^>\n\s]+/);
-
-//       marked.setOptions({
-//         gfm: true,
-//       });
-
-//       resolve({
-//         title: postTitle[0],
-//         date: postDate ?? postDate[1],
-//         description: postDescription ?? postDescription[1],
-//         url: fileName.replace(/.md/g, ''),
-//         html: withHtml ? marked(md) : null,
-//       });
-//     });
-//   });
-// }
-
 const schema = {
   querystring: {
     name: { type: 'string' },
@@ -101,6 +73,7 @@ fastify.get('/:post', (req, reply) => {
   }
 
   getPostInfo(file, true).then((postInfo) => {
+    console.log(postInfo);
     reply.view('./templates/post.njk', {
       postList: false,
       head: {
