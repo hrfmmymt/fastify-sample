@@ -7,8 +7,13 @@ const fastify = require('fastify')({
 });
 const marked = require('marked');
 
+const getPostInfo = require('./utils/get_post_list');
+
 const config = {
   postDir: path.join(__dirname, '/post/'),
+  postsList: JSON.parse(
+    fs.readFileSync(path.join(__dirname, './posts-list.json'), 'utf8')
+  ),
 };
 
 const metadata = {
@@ -20,33 +25,33 @@ const metadata = {
   twitterCard: 'summary',
 };
 
-marked.setOptions({
-  gfm: true,
-});
+// marked.setOptions({
+//   gfm: true,
+// });
 
-function getPostInfo(fileName, withHtml) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(config.postDir + fileName, 'utf-8', (err, md) => {
-      if (err) reject(err);
+// function getPostInfo(fileName, withHtml) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(config.postDir + fileName, 'utf-8', (err, md) => {
+//       if (err) reject(err);
 
-      const postTitle = md.match(/^#\s(.)+\n/)[0].match(/[^#\n\s]+/);
-      const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
-      const postDescription = md.match(/\n\*desc>(.)+\n/)[0].match(/[^>\n\s]+/);
+//       const postTitle = md.match(/^#\s(.)+\n/)[0].match(/[^#\n\s]+/);
+//       const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
+//       const postDescription = md.match(/\n\*desc>(.)+\n/)[0].match(/[^>\n\s]+/);
 
-      marked.setOptions({
-        gfm: true,
-      });
+//       marked.setOptions({
+//         gfm: true,
+//       });
 
-      resolve({
-        title: postTitle[0],
-        date: postDate ?? postDate[1],
-        description: postDescription ?? postDescription[1],
-        url: fileName.replace(/.md/g, ''),
-        html: withHtml ? marked(md) : null,
-      });
-    });
-  });
-}
+//       resolve({
+//         title: postTitle[0],
+//         date: postDate ?? postDate[1],
+//         description: postDescription ?? postDescription[1],
+//         url: fileName.replace(/.md/g, ''),
+//         html: withHtml ? marked(md) : null,
+//       });
+//     });
+//   });
+// }
 
 const schema = {
   querystring: {
@@ -70,29 +75,16 @@ fastify.register(require('point-of-view'), {
 });
 
 fastify.get('/', { schema }, (_req, reply) => {
-  return new Promise((resolve, reject) => {
-    fs.readdir(config.postDir, (err, mdFiles) => {
-      if (err) throw err;
-      const postsInfo = [];
-      mdFiles.forEach((_, i) => {
-        getPostInfo(mdFiles[i], false).then((postInfo) => {
-          postsInfo.push(postInfo);
-          if (i === mdFiles.length - 1) {
-            reply.view('./templates/index.njk', {
-              head: {
-                title: 'headTtl',
-                url: '',
-                description: '',
-                ogImage: metadata.ogImage,
-                twitterSite: metadata.twitterSite,
-                twitterCard: metadata.twitterSite,
-              },
-              postList: postsInfo,
-            });
-          }
-        });
-      });
-    });
+  reply.view('./templates/index.njk', {
+    head: {
+      title: 'headTtl',
+      url: '',
+      description: '',
+      ogImage: metadata.ogImage,
+      twitterSite: metadata.twitterSite,
+      twitterCard: metadata.twitterSite,
+    },
+    postList: config.postsList,
   });
 });
 
