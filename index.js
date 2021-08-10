@@ -5,9 +5,8 @@ const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true,
 });
-const marked = require('marked');
 
-const getPostInfo = require('./utils/get_post_list');
+const getPostInfo = require('./utils/get_post_info');
 
 const config = {
   postDir: path.join(__dirname, '/post/'),
@@ -73,7 +72,6 @@ fastify.get('/:post', (req, reply) => {
   }
 
   getPostInfo(file, true).then((postInfo) => {
-    console.log(postInfo);
     reply.view('./templates/post.njk', {
       postList: false,
       head: {
