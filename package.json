@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "dev": "node index.js",
     "get-post-list": "node ./utils/get_post_list.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,11 +16,15 @@
     "fastify": "^3.19.2"
   },
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/marked": "^2.0.4",
+    "@types/node": "^16.4.13",
     "fs": "^0.0.1-security",
     "marked": "^2.1.3",
     "mz": "^2.7.0",
     "nunjucks": "^3.2.3",
     "path": "^0.12.7",
-    "point-of-view": "^4.15.1"
+    "point-of-view": "^4.15.1",
+    "typescript": "^4.3.5"
   }
 }
