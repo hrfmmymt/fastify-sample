@@ -1,3 +1,4 @@
+import * as Fastify from 'fastify';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import fs from 'fs';
 import path from 'path';
@@ -46,7 +47,7 @@ fastify.register(require('point-of-view'), {
   },
 });
 
-fastify.get('/', { schema }, (_req: FastifyRequest, reply: any) => {
+fastify.get('/', { schema }, (_req: any, reply: any) => {
   reply.view('./templates/index.njk', {
     head: {
       title: 'headTtl',
@@ -61,20 +62,20 @@ fastify.get('/', { schema }, (_req: FastifyRequest, reply: any) => {
 });
 
 fastify.get('/:post', (req: any, reply: any) => {
-  const file = path.format({
+  const fileName = path.format({
     name: req.params.post,
     ext: '.md',
   });
 
   try {
-    fs.statSync(config.postDir + file);
+    fs.statSync(config.postDir + fileName);
   } catch (err) {
     if (err.code === 'ENOENT') reply.code(404).send(new Error('Missing this'));
   }
 
-  getPostInfo(file, true).then((postInfo: any) => {
+  getPostInfo({ fileName, withHtml: true }).then((postInfo: any) => {
     reply.view('./templates/post.njk', {
-      postList: false,
+      postList: null,
       head: {
         title: postInfo.title,
         url: postInfo.url,

@@ -4,10 +4,13 @@ import marked from 'marked';
 
 const postDir = path.join(__dirname, '../post/');
 
-export default function getPostInfo(
-  fileName: string,
-  withHtml?: string | boolean
-) {
+export default function getPostInfo({
+  fileName,
+  withHtml,
+}: {
+  fileName: string;
+  withHtml: boolean;
+}) {
   return new Promise((resolve, reject) => {
     fs.readFile(postDir + fileName, 'utf-8', (err, md) => {
       if (err) return reject(err);
@@ -38,5 +41,3 @@ export default function getPostInfo(
     });
   });
 }
-
-// module.exports = getPostInfo;
