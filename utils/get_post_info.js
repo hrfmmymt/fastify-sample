@@ -46,7 +46,7 @@ function getPostInfo({ fileName, withHtml, }) {
                 description,
                 date: postDate ? postDate[1] : '',
                 url: fileName.replace(/.md/g, ''),
-                html: marked(md, { renderer: renderer }),
+                html: marked(md, { renderer }),
             });
         });
     });

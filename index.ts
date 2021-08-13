@@ -1,4 +1,4 @@
-import fastify, { FastifyInstance } from 'fastify'
+import fastify, { FastifyInstance } from 'fastify';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -72,7 +72,7 @@ f.get('/:post', (req: any, reply: any) => {
     if (err.code === 'ENOENT') reply.code(404).send(new Error('Missing this'));
   }
 
-  getPostInfo({ fileName, withHtml: true }).then((postInfo: any) => {
+  getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
     reply.view('./templates/post.njk', {
       postList: null,
       head: {

@@ -5,13 +5,21 @@ const marked = require('marked');
 const postDir = path.join(__dirname, '../post/');
 const renderer = new marked.Renderer();
 
+type PostInfo = {
+  title: string;
+  description: string;
+  date: string;
+  url: string;
+  html: string;
+};
+
 export default function getPostInfo({
   fileName,
   withHtml,
 }: {
   fileName: string;
   withHtml: boolean;
-}) {
+}): Promise<PostInfo> {
   return new Promise((resolve, reject) => {
     fs.readFile(postDir + fileName, 'utf-8', (err, md) => {
       if (err) return reject(err);
@@ -27,6 +35,10 @@ export default function getPostInfo({
       const description = postDescription ? postDescription[1] : '';
 
       const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
+      const date = postDate ? postDate[1] : '';
+
+      const url = fileName.replace(/.md/g, '');
+      const html = marked(md, { renderer });
 
       marked.setOptions({
         gfm: true,
@@ -35,9 +47,9 @@ export default function getPostInfo({
       resolve({
         title,
         description,
-        date: postDate ? postDate[1] : '',
-        url: fileName.replace(/.md/g, ''),
-        html: marked(md, { renderer: renderer }),
+        date,
+        url,
+        html,
       });
     });
   });
