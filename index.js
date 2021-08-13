@@ -1,19 +1,38 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
-const fastify = require('fastify')({
+const fastify_1 = __importDefault(require("fastify"));
+const fs = __importStar(require("fs"));
+const path = __importStar(require("path"));
+const get_post_info_1 = __importDefault(require("./utils/get_post_info"));
+const f = fastify_1.default({
     logger: true,
     ignoreTrailingSlash: true,
 });
-// const getPostInfo = require('./utils/get_post_info');
-const get_post_info_1 = __importDefault(require("./utils/get_post_info"));
 const config = {
-    postDir: path_1.default.join(__dirname, '/post/'),
-    postsList: JSON.parse(fs_1.default.readFileSync(path_1.default.join(__dirname, './posts-list.json'), 'utf8')),
+    postDir: path.join(__dirname, '/post/'),
+    postsList: JSON.parse(fs.readFileSync(path.join(__dirname, './posts-list.json'), 'utf8')),
 };
 const metadata = {
     author: 'hrfmmymt',
@@ -36,12 +55,12 @@ const schema = {
         },
     },
 };
-fastify.register(require('point-of-view'), {
+f.register(require('point-of-view'), {
     engine: {
         nunjucks: require('nunjucks'),
     },
 });
-fastify.get('/', { schema }, (_req, reply) => {
+f.get('/', { schema }, (_req, reply) => {
     reply.view('./templates/index.njk', {
         head: {
             title: 'headTtl',
@@ -54,21 +73,21 @@ fastify.get('/', { schema }, (_req, reply) => {
         postList: config.postsList,
     });
 });
-fastify.get('/:post', (req, reply) => {
-    const file = path_1.default.format({
+f.get('/:post', (req, reply) => {
+    const fileName = path.format({
         name: req.params.post,
         ext: '.md',
     });
     try {
-        fs_1.default.statSync(config.postDir + file);
+        fs.statSync(config.postDir + fileName);
     }
     catch (err) {
         if (err.code === 'ENOENT')
             reply.code(404).send(new Error('Missing this'));
     }
-    get_post_info_1.default(file, true).then((postInfo) => {
+    get_post_info_1.default({ fileName, withHtml: true }).then((postInfo) => {
         reply.view('./templates/post.njk', {
-            postList: false,
+            postList: null,
             head: {
                 title: postInfo.title,
                 url: postInfo.url,
@@ -83,8 +102,7 @@ fastify.get('/:post', (req, reply) => {
         });
     });
 });
-fastify.listen(3000, (err) => {
+f.listen(3000, (err) => {
     if (err)
         throw err;
-    console.log(`server listening on ${fastify.server.address().port}`);
 });

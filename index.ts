@@ -1,11 +1,10 @@
-import * as Fastify from 'fastify';
-import { FastifyReply, FastifyRequest } from 'fastify';
-import fs from 'fs';
-import path from 'path';
+import fastify, { FastifyInstance } from 'fastify'
+import * as fs from 'fs';
+import * as path from 'path';
 
 import getPostInfo from './utils/get_post_info';
 
-const fastify = require('fastify')({
+const f: FastifyInstance = fastify({
   logger: true,
   ignoreTrailingSlash: true,
 });
@@ -41,13 +40,13 @@ const schema = {
   },
 };
 
-fastify.register(require('point-of-view'), {
+f.register(require('point-of-view'), {
   engine: {
     nunjucks: require('nunjucks'),
   },
 });
 
-fastify.get('/', { schema }, (_req: any, reply: any) => {
+f.get('/', { schema }, (_req: any, reply: any) => {
   reply.view('./templates/index.njk', {
     head: {
       title: 'headTtl',
@@ -61,7 +60,7 @@ fastify.get('/', { schema }, (_req: any, reply: any) => {
   });
 });
 
-fastify.get('/:post', (req: any, reply: any) => {
+f.get('/:post', (req: any, reply: any) => {
   const fileName = path.format({
     name: req.params.post,
     ext: '.md',
@@ -91,7 +90,6 @@ fastify.get('/:post', (req: any, reply: any) => {
   });
 });
 
-fastify.listen(3000, (err: Error) => {
+f.listen(3000, (err: Error) => {
   if (err) throw err;
-  console.log(`server listening on ${fastify.server.address().port}`);
 });

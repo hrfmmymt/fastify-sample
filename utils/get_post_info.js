@@ -1,15 +1,31 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
-const marked_1 = __importDefault(require("marked"));
-const postDir = path_1.default.join(__dirname, '../post/');
-function getPostInfo(fileName, withHtml) {
+const fs = __importStar(require("fs"));
+const path = __importStar(require("path"));
+const marked = __importStar(require("marked"));
+const postDir = path.join(__dirname, '../post/');
+function getPostInfo({ fileName, withHtml, }) {
     return new Promise((resolve, reject) => {
-        fs_1.default.readFile(postDir + fileName, 'utf-8', (err, md) => {
+        fs.readFile(postDir + fileName, 'utf-8', (err, md) => {
             if (err)
                 return reject(err);
             const h1 = md.match(/^#\s.+\n/);
@@ -21,7 +37,7 @@ function getPostInfo(fileName, withHtml) {
                 : null;
             const description = postDescription ? postDescription[1] : '';
             const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
-            marked_1.default.setOptions({
+            marked.setOptions({
                 gfm: true,
             });
             resolve({
@@ -29,10 +45,9 @@ function getPostInfo(fileName, withHtml) {
                 description,
                 date: postDate ? postDate[1] : '',
                 url: fileName.replace(/.md/g, ''),
-                html: withHtml ? marked_1.default(md) : null,
+                html: withHtml ? marked(md) : null,
             });
         });
     });
 }
 exports.default = getPostInfo;
-// module.exports = getPostInfo;

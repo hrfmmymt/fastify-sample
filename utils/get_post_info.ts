@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import marked from 'marked';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as marked from 'marked';
 
 const postDir = path.join(__dirname, '../post/');
 
