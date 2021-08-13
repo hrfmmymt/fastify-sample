@@ -21,8 +21,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const marked = __importStar(require("marked"));
+const marked = require('marked');
 const postDir = path.join(__dirname, '../post/');
+const renderer = new marked.Renderer();
 function getPostInfo({ fileName, withHtml, }) {
     return new Promise((resolve, reject) => {
         fs.readFile(postDir + fileName, 'utf-8', (err, md) => {
@@ -45,7 +46,7 @@ function getPostInfo({ fileName, withHtml, }) {
                 description,
                 date: postDate ? postDate[1] : '',
                 url: fileName.replace(/.md/g, ''),
-                html: withHtml ? marked(md) : null,
+                html: marked(md, { renderer: renderer }),
             });
         });
     });

@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as marked from 'marked';
+const marked = require('marked');
 
 const postDir = path.join(__dirname, '../post/');
+const renderer = new marked.Renderer();
 
 export default function getPostInfo({
   fileName,
@@ -36,7 +37,7 @@ export default function getPostInfo({
         description,
         date: postDate ? postDate[1] : '',
         url: fileName.replace(/.md/g, ''),
-        html: withHtml ? marked(md) : null,
+        html: marked(md, { renderer: renderer }),
       });
     });
   });
