@@ -19,12 +19,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getPostInfo = void 0;
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const marked = require('marked');
 const postDir = path.join(__dirname, '../post/');
 const renderer = new marked.Renderer();
-function getPostInfo({ fileName, withHtml, }) {
+const getPostInfo = function ({ fileName, withHtml, }) {
     return new Promise((resolve, reject) => {
         fs.readFile(postDir + fileName, 'utf-8', (err, md) => {
             if (err)
@@ -38,17 +39,20 @@ function getPostInfo({ fileName, withHtml, }) {
                 : null;
             const description = postDescription ? postDescription[1] : '';
             const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
+            const date = postDate ? postDate[1] : '';
+            const url = fileName.replace(/.md/g, '');
+            const html = withHtml ? marked(md, { renderer }) : null;
             marked.setOptions({
                 gfm: true,
             });
             resolve({
                 title,
                 description,
-                date: postDate ? postDate[1] : '',
-                url: fileName.replace(/.md/g, ''),
-                html: marked(md, { renderer }),
+                date,
+                url,
+                html,
             });
         });
     });
-}
-exports.default = getPostInfo;
+};
+exports.getPostInfo = getPostInfo;

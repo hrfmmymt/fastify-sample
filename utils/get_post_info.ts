@@ -1,19 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { PostInfo } from './types';
 const marked = require('marked');
 
 const postDir = path.join(__dirname, '../post/');
 const renderer = new marked.Renderer();
 
-type PostInfo = {
-  title: string;
-  description: string;
-  date: string;
-  url: string;
-  html: string;
-};
-
-export default function getPostInfo({
+export const getPostInfo = function ({
   fileName,
   withHtml,
 }: {
@@ -38,7 +31,7 @@ export default function getPostInfo({
       const date = postDate ? postDate[1] : '';
 
       const url = fileName.replace(/.md/g, '');
-      const html = marked(md, { renderer });
+      const html = withHtml ? marked(md, { renderer }) : null;
 
       marked.setOptions({
         gfm: true,
@@ -53,4 +46,4 @@ export default function getPostInfo({
       });
     });
   });
-}
+};
