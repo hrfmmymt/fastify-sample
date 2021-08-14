@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "node index.js",
-    "get-post-list": "node ./utils/get_post_list.js",
+    "dev": "npx ts-node index.ts",
+    "get-post-list": "npx ts-node ./utils/get_post_list.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,6 +18,7 @@
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@types/marked": "^2.0.4",
+    "@types/mz": "^2.7.4",
     "@types/node": "^16.4.13",
     "fs": "^0.0.1-security",
     "marked": "^2.1.3",
