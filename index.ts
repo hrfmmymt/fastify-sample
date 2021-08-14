@@ -2,7 +2,7 @@ import fastify, { FastifyInstance } from 'fastify';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import getPostInfo from './utils/get_post_info';
+import { getPostInfo } from './utils/get_post_info';
 
 const f: FastifyInstance = fastify({
   logger: true,
@@ -88,6 +88,10 @@ f.get('/:post', (req: any, reply: any) => {
       },
     });
   });
+});
+
+f.get('/api', (req, reply) => {
+  reply.send(config.postsList);
 });
 
 f.listen(3000, (err: Error) => {

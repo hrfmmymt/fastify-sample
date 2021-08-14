@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const get_post_info_1 = __importDefault(require("./utils/get_post_info"));
+const get_post_info_1 = require("./utils/get_post_info");
 const f = fastify_1.default({
     logger: true,
     ignoreTrailingSlash: true,
@@ -85,7 +85,7 @@ f.get('/:post', (req, reply) => {
         if (err.code === 'ENOENT')
             reply.code(404).send(new Error('Missing this'));
     }
-    get_post_info_1.default({ fileName, withHtml: true }).then((postInfo) => {
+    get_post_info_1.getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
         reply.view('./templates/post.njk', {
             postList: null,
             head: {
@@ -101,6 +101,9 @@ f.get('/:post', (req, reply) => {
             },
         });
     });
+});
+f.get('/api', (req, reply) => {
+    reply.send(config.postsList);
 });
 f.listen(3000, (err) => {
     if (err)
