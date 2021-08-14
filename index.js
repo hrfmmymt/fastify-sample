@@ -105,6 +105,9 @@ f.get('/:post', (req, reply) => {
 f.get('/api', (req, reply) => {
     reply.send(config.postsList);
 });
+f.get('/favicon.ico', (_req, reply) => {
+    reply.code(404).send();
+});
 f.listen(3000, (err) => {
     if (err)
         throw err;

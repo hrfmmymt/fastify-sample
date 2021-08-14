@@ -90,8 +90,12 @@ f.get('/:post', (req: any, reply: any) => {
   });
 });
 
-f.get('/api', (req, reply) => {
+f.get('/api', (_req, reply) => {
   reply.send(config.postsList);
+});
+
+f.get('/favicon.ico', (_req, reply) => {
+  reply.code(404).send();
 });
 
 f.listen(3000, (err: Error) => {
