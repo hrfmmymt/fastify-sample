@@ -1,15 +1,18 @@
-const fs = require('mz/fs');
-const path = require('path');
+import * as fs from 'mz/fs';
+import * as path from 'path';
 
-const getPostInfo = require('./get_post_info');
+import { getPostInfo } from './get_post_info';
+import { PostInfo } from './types';
 
 const postDir = path.join(__dirname, '../post/');
 
 async function sortPostsList() {
   const dist = path.join(__dirname, '../');
   const files = await fs.readdir(postDir);
-  const posts = files.map((file) => getPostInfo(file));
-  const postsList = await Promise.all(posts);
+  const posts = files.map((file: string) =>
+    getPostInfo({ fileName: file, withHtml: true })
+  );
+  const postsList: PostInfo[] = await Promise.all(posts);
 
   const list = postsList.sort((a, b) => {
     if (a.date > b.date) return -1;
