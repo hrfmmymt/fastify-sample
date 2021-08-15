@@ -73,7 +73,7 @@ f.get('/:post', (req: any, reply: any) => {
   }
 
   getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
-    reply.view('./templates/post.njk', {
+    reply.view('./templates/page/post.njk', {
       postList: null,
       head: {
         title: postInfo.title,

@@ -1,35 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="UTF-8">
-    <title>{{head.title}}</title>
-    <meta name="author" content="">
-    <meta name="copyright" content="">
-    <meta name="description" content="{{head.description}}">
-    <meta name="format-detection" content="telephone=no,address=no,email=no">
-    <meta name="viewport" content="">
-    <meta property="og:description" content="{{head.description}}">
-    <meta property="og:title" content="{{head.title}}">
-    <meta property="og:url" content="{{head.url}}">
-    <meta property="og:image" content="">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ja_JP">
-    <meta name="twitter:title" content="{{head.title}}">
-    <meta name="twitter:description" content="{{head.description}}">
-    <meta name="twitter:image" content="">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="">
-    <link rel="shortcut icon" href="{{head.icon}}">
-    <link rel="image_src" href="{{head.icon}}">
-    <link rel="icon" type="image/png" href="{{head.icon}}">
-    <link rel="apple-touch-icon" href="{{head.icon}}">
-    {# <link rel="stylesheet" href="./css/style.css"> #}
+  {%- include './partial/head.njk' -%}
   </head>
   <body>
     <ul>
-    {% for item in postList %}
+    {% for item in postList -%}
       <li><a href="{{ item.url }}">{{ item.title }}</a></li>
-    {% endfor %}
+    {% endfor -%}
     </ul>
   </body>
 </html>

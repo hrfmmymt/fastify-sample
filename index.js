@@ -86,7 +86,7 @@ f.get('/:post', (req, reply) => {
             reply.code(404).send(new Error('Missing this'));
     }
     get_post_info_1.getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
-        reply.view('./templates/post.njk', {
+        reply.view('./templates/page/post.njk', {
             postList: null,
             head: {
                 title: postInfo.title,
@@ -102,7 +102,7 @@ f.get('/:post', (req, reply) => {
         });
     });
 });
-f.get('/api', (req, reply) => {
+f.get('/api', (_req, reply) => {
     reply.send(config.postsList);
 });
 f.get('/favicon.ico', (_req, reply) => {
