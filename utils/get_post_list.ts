@@ -4,6 +4,7 @@ import * as path from 'path';
 import { getPostInfo } from './get_post_info';
 import { PostInfo } from './types';
 
+const __dirname = path.resolve();
 const postDir = path.join(__dirname, '../post/');
 
 async function sortPostsList() {

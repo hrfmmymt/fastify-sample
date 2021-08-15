@@ -21,6 +21,7 @@ const metadata = {
   copyright:
     'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
   ogImage: 'og_img.jpg',
+  title: "hrfmmymt's fastify-sample",
   twitterSite: '@hrfmmymt',
   twitterCard: 'summary',
 };
@@ -49,7 +50,7 @@ f.register(require('point-of-view'), {
 f.get('/', { schema }, (_req: any, reply: any) => {
   reply.view('./templates/index.njk', {
     head: {
-      title: 'headTtl',
+      title: metadata.title,
       url: '',
       description: '',
       ogImage: metadata.ogImage,
