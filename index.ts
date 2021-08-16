@@ -32,6 +32,11 @@ f.register(require('point-of-view'), {
   },
 });
 
+f.register(require('fastify-static'), {
+  root: path.join(__dirname, 'public'),
+  prefix: '/public/',
+});
+
 f.get('/', (_req, reply: any) => {
   reply.view('./templates/index.njk', {
     head: {

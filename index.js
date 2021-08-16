@@ -38,32 +38,23 @@ const metadata = {
     author: 'hrfmmymt',
     copyright: 'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
     ogImage: 'og_img.jpg',
+    title: "hrfmmymt's fastify-sample",
     twitterSite: '@hrfmmymt',
     twitterCard: 'summary',
-};
-const schema = {
-    querystring: {
-        name: { type: 'string' },
-        excitement: { type: 'integer' },
-    },
-    response: {
-        200: {
-            type: 'object',
-            properties: {
-                title: { type: 'string' },
-            },
-        },
-    },
 };
 f.register(require('point-of-view'), {
     engine: {
         nunjucks: require('nunjucks'),
     },
 });
-f.get('/', { schema }, (_req, reply) => {
+f.register(require('fastify-static'), {
+    root: path.join(__dirname, 'public'),
+    prefix: '/public/',
+});
+f.get('/', (_req, reply) => {
     reply.view('./templates/index.njk', {
         head: {
-            title: 'headTtl',
+            title: metadata.title,
             url: '',
             description: '',
             ogImage: metadata.ogImage,
@@ -74,8 +65,9 @@ f.get('/', { schema }, (_req, reply) => {
     });
 });
 f.get('/:post', (req, reply) => {
+    const { post } = req.params;
     const fileName = path.format({
-        name: req.params.post,
+        name: post,
         ext: '.md',
     });
     try {
@@ -108,7 +100,8 @@ f.get('/api', (_req, reply) => {
 f.get('/favicon.ico', (_req, reply) => {
     reply.code(404).send();
 });
-f.listen(3000, (err) => {
+f.listen(3000, (err, address) => {
     if (err)
         throw err;
+    console.log(`server listening on ${address}`);
 });
