@@ -26,28 +26,13 @@ const metadata = {
   twitterCard: 'summary',
 };
 
-const schema = {
-  querystring: {
-    name: { type: 'string' },
-    excitement: { type: 'integer' },
-  },
-  response: {
-    200: {
-      type: 'object',
-      properties: {
-        title: { type: 'string' },
-      },
-    },
-  },
-};
-
 f.register(require('point-of-view'), {
   engine: {
     nunjucks: require('nunjucks'),
   },
 });
 
-f.get('/', { schema }, (_req: any, reply: any) => {
+f.get('/', (_req, reply: any) => {
   reply.view('./templates/index.njk', {
     head: {
       title: metadata.title,
@@ -62,8 +47,9 @@ f.get('/', { schema }, (_req: any, reply: any) => {
 });
 
 f.get('/:post', (req: any, reply: any) => {
+  const { post } = req.params;
   const fileName = path.format({
-    name: req.params.post,
+    name: post,
     ext: '.md',
   });
 
@@ -99,6 +85,7 @@ f.get('/favicon.ico', (_req, reply) => {
   reply.code(404).send();
 });
 
-f.listen(3000, (err: Error) => {
+f.listen(3000, (err: Error, address) => {
   if (err) throw err;
+  console.log(`server listening on ${address}`);
 });
