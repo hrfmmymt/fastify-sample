@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "vercel": "vercel",
     "dev": "npx ts-node-dev index.ts",
     "get-post-list": "npx ts-node-dev ./utils/get_post_list.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +14,8 @@
   "author": "hrfmmymt",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^3.19.2"
+    "fastify": "^3.19.2",
+    "vercel": "^23.1.2"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
