@@ -1,8 +1,26 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "/**.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["templates/**", "public/**"]
+      }
     }
-  ]
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ],
+  "env": {
+    "FILE_PATH": "templates/"
+  },
+  "build": {
+    "env": {
+      "FILE_PATH": ""
+    }
+  }
 }
