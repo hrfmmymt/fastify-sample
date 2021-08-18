@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "vercel": "vercel",
-    "dev": "npx ts-node-dev index.ts",
-    "get-post-list": "npx ts-node-dev ./utils/get_post_list.ts",
+    "dev": "ts-node-dev index.ts",
+    "get-post-list": "ts-node-dev ./utils/get_post_list.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "vercel": "vercel",
     "vercel-dev": "vercel dev"
   },
   "keywords": [],
@@ -31,6 +31,7 @@
     "nunjucks": "^3.2.3",
     "path": "^0.12.7",
     "point-of-view": "^4.15.1",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5"
   }
 }
