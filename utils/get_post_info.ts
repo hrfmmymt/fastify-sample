@@ -30,7 +30,7 @@ export const getPostInfo = function ({
       const postDate = /\*date\:((?:(?!\*)[^\s　])+)/g.exec(md);
       const date = postDate ? postDate[1] : '';
 
-      const url = fileName.replace(/.md/g, '');
+      const url = encodeURI(fileName.replace(/.md/g, ''));
       const html = withHtml ? marked(md, { renderer }) : null;
 
       marked.setOptions({
