@@ -4,10 +4,10 @@ import * as path from 'path';
 
 import { getPostInfo } from './utils/get_post_info';
 
-const f: FastifyInstance = fastify({
+const f: FastifyInstance = (module.exports = fastify({
   logger: true,
   ignoreTrailingSlash: true,
-});
+}));
 
 const config = {
   postDir: path.join(__dirname, '/post/'),
