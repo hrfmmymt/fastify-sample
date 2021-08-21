@@ -30,3 +30,9 @@ tap.test('return html null if `withHtml` is false', async (t) => {
     t.equal(data.html, expect.html);
   });
 });
+
+tap.test('error: ENOENT', async (t) => {
+  return getPostInfo({ fileName: 'XXX', withHtml: false }).catch(() =>
+    t.pass('expected rejection')
+  );
+});
