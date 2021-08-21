@@ -4,5 +4,6 @@ yarn-error.log*
 *.js
 !test_*.js
 .nyc_output
+coverage
 
 .vercel
