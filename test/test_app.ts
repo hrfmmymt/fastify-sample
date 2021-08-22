@@ -1,17 +1,12 @@
-'use strict';
-const { test } = require('tap');
-const request = require('request');
-const supertest = require('supertest');
+import tap from 'tap';
 
 const build = require('../src/app');
 
-test('GET `/` route', (t) => {
+tap.test('GET `/` route', (t) => {
   t.plan(3);
 
   const fastify = build();
 
-  // At the end of your tests it is highly recommended to call `.close()`
-  // to ensure that all connections to external services get closed.
   t.teardown(() => fastify.close());
 
   fastify.inject(
@@ -19,7 +14,7 @@ test('GET `/` route', (t) => {
       method: 'GET',
       url: '/',
     },
-    (err, response) => {
+    (err: Error, response: any) => {
       t.error(err);
       t.equal(response.statusCode, 200);
       t.equal(response.headers['content-type'], 'text/html; charset=utf-8');
@@ -27,7 +22,7 @@ test('GET `/` route', (t) => {
   );
 });
 
-test('GET `/:post` post', (t) => {
+tap.test('GET `/:post` post', (t) => {
   t.plan(3);
 
   const fastify = build();
@@ -39,7 +34,7 @@ test('GET `/:post` post', (t) => {
       method: 'GET',
       url: '/1',
     },
-    (err, response) => {
+    (err: Error, response: any) => {
       t.error(err);
       t.equal(response.statusCode, 200);
       t.equal(response.headers['content-type'], 'text/html; charset=utf-8');

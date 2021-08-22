@@ -1,7 +1,6 @@
-'use strict';
-const tap = require('tap');
+import tap from 'tap';
 
-const { getPostInfo } = require('../utils/get_post_info');
+import { getPostInfo } from '../utils/get_post_info';
 
 const expect = {
   title: '0',
