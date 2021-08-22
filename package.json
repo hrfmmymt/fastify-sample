@@ -9,7 +9,7 @@
     "get-post-list": "run-s get-post-info run-get-post-list",
     "get-post-info": "tsc utils/get_post_info.ts",
     "run-get-post-list": "ts-node-dev ./utils/get_post_list.ts",
-    "test": "tap --reporter=list --watch",
+    "test": "tap --ts --reporter=list",
     "tsc-all": "tsc -p tsconfig.json",
     "vercel": "vercel",
     "vercel-dev": "vercel dev"
@@ -26,6 +26,7 @@
     "@types/marked": "^2.0.4",
     "@types/mz": "^2.7.4",
     "@types/node": "^16.4.13",
+    "@types/tap": "^15.0.5",
     "@vercel/node": "^1.12.1",
     "fastify-static": "^4.2.3",
     "fs": "^0.0.1-security",
