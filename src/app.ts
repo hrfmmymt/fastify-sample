@@ -1,8 +1,9 @@
-import fastify from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
 import * as fs from 'fs';
 import * as path from 'path';
 
 import { getPostInfo } from '../utils/get_post_info';
+import {checkFileExistence} from '../utils/check_file_existence';
 
 const config = {
   postDir: path.join(__dirname, '../post/'),
@@ -22,7 +23,7 @@ const metadata = {
 };
 
 function build(opts = {}) {
-  const app = fastify(opts);
+  const app: FastifyInstance = fastify(opts);
 
   app.register(require('point-of-view'), {
     engine: {
@@ -56,12 +57,9 @@ function build(opts = {}) {
       ext: '.md',
     });
 
-    try {
-      fs.statSync(config.postDir + fileName);
-    } catch (err) {
-      if (err.code === 'ENOENT')
-        reply.code(404).view('./templates/page/404.njk');
-    }
+    const filePath = config.postDir + fileName
+
+    checkFileExistence({filePath, reply});
 
     getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
       reply.view('./templates/page/post.njk', {
