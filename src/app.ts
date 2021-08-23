@@ -60,7 +60,7 @@ function build(opts = {}) {
       fs.statSync(config.postDir + fileName);
     } catch (err) {
       if (err.code === 'ENOENT')
-        reply.code(404).send(new Error('Missing this'));
+        reply.code(404).view('./templates/page/404.njk');
     }
 
     getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
