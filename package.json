@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "run-s tsc-all get-post-list run-get-post-list",
-    "build-sw": "workbox generateSW workbox-config.js",
+    "build-sw": "node utils/build_sw.js",
     "dev": "ts-node-dev index.ts",
     "get-post-list": "run-s get-post-info run-get-post-list",
     "get-post-info": "tsc utils/get_post_info.ts",
@@ -45,10 +45,6 @@
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5",
     "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
-    "workbox-cli": "^6.2.4",
-    "workbox-sw": "^6.2.4",
-    "workbox-webpack-plugin": "^6.2.4",
-    "workbox-window": "^6.2.4"
+    "workbox-cli": "^6.2.4"
   }
 }
