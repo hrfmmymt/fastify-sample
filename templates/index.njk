@@ -12,6 +12,14 @@
       {% endfor -%}
       </ul>
     </main>
+    <script>
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('public/js/sw.js');
+      });
+    }
+    </script>
     <script src="public/js/script.js" defer></script>
   </body>
 </html>
