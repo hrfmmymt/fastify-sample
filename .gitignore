@@ -4,6 +4,7 @@ yarn-error.log*
 *.js
 !test_*.js
 !workbox-config.js
+!build_sw.js
 .nyc_output
 coverage
 
