@@ -16,7 +16,8 @@ const metadata = {
   author: 'hrfmmymt',
   copyright:
     'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
-  ogImage: 'og_img.jpg',
+  ogImage: 'public/img/icons/icon.png',
+  favicon: 'public/img/icons/favicon.ico',
   title: "hrfmmymt's fastify-sample",
   twitterSite: '@hrfmmymt',
   twitterCard: 'summary',
@@ -42,6 +43,7 @@ function build(opts = {}) {
         title: metadata.title,
         url: '',
         description: '',
+        favicon: metadata.favicon,
         ogImage: metadata.ogImage,
         twitterSite: metadata.twitterSite,
         twitterCard: metadata.twitterSite,
