@@ -24,7 +24,7 @@ async function sortPostsList() {
     return 0;
   });
 
-  fs.writeFile(`${dist}posts-list.json`, JSON.stringify(list, null, '  '));
+  fs.writeFile(`${dist}post-list.json`, JSON.stringify(list, null, '  '));
 }
 
 sortPostsList();

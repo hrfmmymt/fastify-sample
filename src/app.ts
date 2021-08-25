@@ -7,8 +7,8 @@ import { checkFileExistence } from '../utils/check_file_existence';
 
 const config = {
   postDir: path.join(__dirname, '../post/'),
-  postsList: JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../posts-list.json'), 'utf8')
+  postList: JSON.parse(
+    fs.readFileSync(path.join(__dirname, '../post-list.json'), 'utf8')
   ),
 };
 
@@ -33,8 +33,8 @@ function build(opts = {}) {
   });
 
   app.register(require('fastify-static'), {
-    root: path.join(__dirname, '../public'),
-    prefix: '/public/',
+    root: path.join(__dirname, '../'),
+    prefix: '/',
   });
 
   app.get('/', (_req, reply: any) => {
@@ -48,7 +48,7 @@ function build(opts = {}) {
         twitterSite: metadata.twitterSite,
         twitterCard: metadata.twitterSite,
       },
-      postList: config.postsList,
+      postList: config.postList,
     });
   });
 
@@ -82,12 +82,14 @@ function build(opts = {}) {
   });
 
   app.get('/api', (_req, reply) => {
-    reply.send(config.postsList);
+    reply.send(config.postList);
   });
 
-  app.get('/favicon.ico', (_req, reply) => {
-    reply.code(404).send();
-  });
+  app.get('/sw.js', (_req, reply) => {
+    fs.readFile('./sw.js', 'utf-8', (err, fileBuffer) => {
+      reply.type('text/javascript').send(err || fileBuffer)
+    })
+  })
 
   return app;
 }
