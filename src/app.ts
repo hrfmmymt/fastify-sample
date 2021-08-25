@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { getPostInfo } from '../utils/get_post_info';
-import {checkFileExistence} from '../utils/check_file_existence';
+import { checkFileExistence } from '../utils/check_file_existence';
 
 const config = {
   postDir: path.join(__dirname, '../post/'),
@@ -59,9 +59,9 @@ function build(opts = {}) {
       ext: '.md',
     });
 
-    const filePath = config.postDir + fileName
+    const filePath = config.postDir + fileName;
 
-    checkFileExistence({filePath, reply});
+    checkFileExistence({ filePath, reply });
 
     getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
       reply.view('./templates/page/post.njk', {
