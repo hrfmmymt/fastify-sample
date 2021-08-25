@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "run-s tsc-all get-post-list run-get-post-list",
-    "build-sw": "node utils/build_sw.js",
+    "build-sw": "ts-node-dev utils/build_sw.ts",
     "dev": "ts-node-dev index.ts",
     "get-post-list": "run-s get-post-info run-get-post-list",
     "get-post-info": "tsc utils/get_post_info.ts",
