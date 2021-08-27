@@ -1,11 +1,10 @@
 import * as fs from 'mz/fs';
-import * as path from 'path';
 import * as glob from 'glob';
 
 import { PostInfo } from './types';
 
 const PUBLIC_DIR = 'public/';
-const DIST = './utils/';
+const STATIC_CACHE_URL_LIST = ['./', './sw.js'];
 
 const getCacheUrlList = (): void => {
   const postList = JSON.parse(fs.readFileSync('./post-list.json', 'utf8'));
@@ -16,11 +15,23 @@ const getCacheUrlList = (): void => {
   const staticFiles = publicFiles.map((item: string) => `./${item}`);
   const postAndStaticFiles = postFiles.concat(staticFiles);
 
-  const array = JSON.stringify(postAndStaticFiles, null, '  ');
-  fs.writeFile(
-    `${DIST}cache-url-list.ts`,
-    `export const CACHE_URL_LIST = ${array};`
-  );
+  const cacheUrlList = STATIC_CACHE_URL_LIST.concat(postAndStaticFiles);
+  const cacheUrlListString = JSON.stringify(cacheUrlList, null, '  ');
+
+  fs.readFile('./sw.js', 'utf8', (err, data) => {
+    if (err) return console.log(err);
+
+    const existingList =
+      data.match(/const URLS_TO_CACHE = ([\s\S]*?.+)\;/) ?? [];
+    const replaceCacheUrlResult = data.replace(
+      existingList[1],
+      cacheUrlListString
+    );
+
+    fs.writeFile('./sw.js', replaceCacheUrlResult, 'utf8', (err) => {
+      if (err) return console.log(err);
+    });
+  });
 };
 
 getCacheUrlList();
