@@ -1,16 +1,7 @@
 const CACHENAME = '::iiyatsu_serviceworker';
 const VERSION = 'v0.0.1';
 const OFFLINEFALLBACKPAGE = 'offline.html';
-const URLS_TO_CACHE = [
-  './',
-  './0',
-  './1%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC',
-  './1',
-  './public/css/style.css',
-  './public/js/script.js',
-  './public/manifest.json',
-  './sw.js',
-];
+const URLS_TO_CACHE = ['./', './sw.js'];
 
 const preLoad = async () => {
   console.log('Installing web app');
