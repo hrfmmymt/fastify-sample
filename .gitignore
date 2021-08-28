@@ -3,7 +3,6 @@ yarn-error.log*
 .DS_Store
 *.js
 !test_*.js
-!workbox-config.js
 !build_sw.js
 !sw.js
 .nyc_output
