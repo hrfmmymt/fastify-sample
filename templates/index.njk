@@ -4,24 +4,12 @@
   {%- include './partial/head.njk' -%}
   </head>
   <body>
-    <main>
-      <h1>{{head.title}}</h1>
-      <ul>
-      {% for item in postList -%}
-        <li><a href="{{ item.url }}">{{ item.title }}</a></li>
-      {% endfor -%}
-      </ul>
+    <main class="wrapper">
+      {%- include './partial/header.njk' -%}
+      {%- include './partial/profile.njk' -%}
+      {%- include './partial/top.njk' -%}
+      {%- include './partial/footer.njk' -%}
     </main>
-    <script>
-    if ('serviceWorker' in navigator) {
-      try {
-        navigator.serviceWorker.register('sw.js');
-        console.log('SW registered');
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    </script>
     <script src="public/js/script.js" defer></script>
   </body>
 </html>

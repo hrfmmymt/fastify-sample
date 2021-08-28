@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-  {%- include '../partial/head.njk' -%}
+    {%- include '../partial/head.njk' -%}
   </head>
   <body>
-    <article>
-    {{post.contents | safe}}
+    {%- include '../partial/header.njk' -%}
+    <article class="post-article">
+      {{post.contents | safe}}
+      {%- include './social.njk' -%}
     </article>
+    {%- include '../partial/footer.njk' -%}
   </body>
 </html>
