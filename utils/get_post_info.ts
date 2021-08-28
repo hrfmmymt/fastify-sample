@@ -35,6 +35,11 @@ export const getPostInfo = function ({
 
       marked.setOptions({
         gfm: true,
+        highlight: (code: any, lang: any) => {
+          const hljs = require('highlight.js');
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          return hljs.highlight(code, { language }).value;
+        },
       });
 
       resolve({
