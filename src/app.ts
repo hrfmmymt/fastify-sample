@@ -87,9 +87,13 @@ function build(opts = {}) {
 
   app.get('/sw.js', (_req, reply) => {
     fs.readFile('./sw.js', 'utf-8', (err, fileBuffer) => {
-      reply.type('text/javascript').send(err || fileBuffer)
-    })
-  })
+      reply.type('text/javascript').send(err || fileBuffer);
+    });
+  });
+
+  app.get('/robots.txt', (_req, reply) => {
+    reply.type('text/plain').send('User-agent: *\nDisallow: /');
+  });
 
   return app;
 }
