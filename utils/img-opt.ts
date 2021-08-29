@@ -1,13 +1,7 @@
-import { promisify } from 'util';
-import j from 'jimp';
-import g from 'glob';
-import path from 'path';
+import Jimp from 'jimp';
+import glob from 'glob';
 
-const glob = promisify(g);
-const Jimp = promisify(j);
-const __dirname = path.resolve();
-const dist = path.join(__dirname, './public/img/post/');
-const convertList = [];
+const POST_DIR = './public/img/post/';
 
 /**
  * Resizes and optimizes images in the directory.
@@ -19,10 +13,14 @@ const convertList = [];
  * @return {Promise}
  */
 function resizeDirectoryImages(
-  dirPath,
-  { width = Jimp.AUTO, height = Jimp.AUTO, recursive = false }
+  dirPath: string,
+  {
+    width = Jimp.AUTO,
+    height = Jimp.AUTO,
+    recursive = false,
+  }: { width?: number; height?: number; recursive?: boolean }
 ) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject): void => {
     glob(
       (recursive ? '**/' : '') +
         '*.@(png|PNG|jpg|JPG|jpeg|JPEG|BMP|bmp|gif|GIF)',
@@ -40,15 +38,17 @@ function resizeDirectoryImages(
         }
       }
     );
-  }).then((files) => {
+  }).then((files: any) => {
+    if (files === null) return;
     return Promise.all(
-      files.map((node) => {
-        const dists = dist + node.match('.+/(.+?)$')[1];
-        convertList.push(dists);
+      files.map((node: string, index: number) => {
+        const nodeRegex = node.match('.+/(.+?)$');
+        const nodeExec = nodeRegex !== null ? nodeRegex[1] : `null_${index}`;
+        const dists = POST_DIR + nodeExec;
         return new Promise((resolve, reject) => {
           return Jimp.read(node).then((image) => {
             image
-              .exifRotate()
+              .rotate(0)
               .resize(width, height)
               .quality(85)
               .write(dists, (err) => {
