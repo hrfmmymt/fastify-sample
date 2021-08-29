@@ -1,6 +1,7 @@
 import fastify, { FastifyInstance } from 'fastify';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as marked from 'marked';
 
 import { getPostInfo } from '../utils/get_post_info';
 import { checkFileExistence } from '../utils/check_file_existence';
@@ -21,8 +22,8 @@ const metadata = {
   copyright:
     'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
   description: "hrfmmymt's weblog",
-  ogImage: 'public/img/icons/icon.png',
-  favicon: 'public/img/icons/favicon.ico',
+  ogImage: 'public/img/icon/icon.png',
+  favicon: 'public/img/icon/favicon.ico',
   title: COMMON_TITLE,
   twitterAccount: '@hrfmmymt',
   twitterCard: 'summary',
@@ -30,6 +31,33 @@ const metadata = {
 };
 
 function build(opts = {}) {
+  const renderer = new marked.Renderer();
+  const sanitize = (str: string) => {
+    return str.replace(/&<"/g, (m) => {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      return '&quot;';
+    });
+  };
+  renderer.image = (src: string, _title: string, alt: string) => {
+    const exec = /=\s*(\d*)\s*x\s*(\d*)\s*$/.exec(src);
+    const regExp = exec && exec[0] ? new RegExp(exec[0], 'g') : '';
+    const mySrc = src.replace(regExp, '');
+    const mySrcRegex = mySrc.match(/(.*)(?:\.([^.]+$))/);
+    const srcExec = mySrcRegex !== null ? mySrcRegex[1] : '';
+    const fileName = srcExec.replace('public/img/posts/', '');
+    const webpSrc = `public/img/posts/webp/${fileName}.webp`;
+    const width = exec && exec[1] ? exec[1] : 0;
+    const height = exec && exec[2] ? exec[2] : 0;
+    return `<picture>
+      <source srcset="${webpSrc}" type="image/webp">
+      <source srcset="${srcExec}" type="image/jpeg">
+      <img src="${srcExec}" alt="${sanitize(
+      alt
+    )}" width="${width}" height="${height}" />
+    </picture>`;
+  };
+
   const app: FastifyInstance = fastify(opts);
 
   app.register(require('point-of-view'), {
