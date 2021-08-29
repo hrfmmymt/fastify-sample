@@ -5,7 +5,10 @@ yarn-error.log*
 !test_*.js
 !build_sw.js
 !sw.js
+!img-opt.js
+!webp.js
 .nyc_output
 coverage
+raw
 
 .vercel
