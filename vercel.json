@@ -13,7 +13,8 @@
     {
       "src": "/(.*)",
       "dest": "index.js"
-    }
+    },
+    { "src": "/(.*)", "status": 404, "dest": "/404.html" }
   ],
   "env": {
     "FILE_PATH": "templates/"

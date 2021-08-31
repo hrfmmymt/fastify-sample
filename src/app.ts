@@ -1,10 +1,8 @@
 import fastify, { FastifyInstance } from 'fastify';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as marked from 'marked';
 
 import { getPostInfo } from '../utils/get_post_info';
-import { checkFileExistence } from '../utils/check_file_existence';
 
 const COMMON_TITLE = "iiyatsu - hrfmmymt's weblog";
 const PUBLIC_URL = 'https://iiyatsu.hrfmmymt.com/';
@@ -75,8 +73,13 @@ function build(opts = {}) {
     });
 
     const filePath = config.postDir + fileName;
-
-    checkFileExistence({ filePath, reply });
+    try {
+      fs.statSync(filePath);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        reply.code(404).view('./templates/page/404.njk');
+      }
+    }
 
     getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
       reply.view('./templates/page/post.njk', {

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/img/icon/favicon.ico" rel="shortcut icon" />
+    <title>404 | iiyatsu - hrfmmymt&#39;s blog</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        width: 100%;
+        background-color: #000;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+      }
+      h1 {
+        font-size: 36vw;
+        text-align: center;
+        line-height: 1;
+        font-family: 'Futura', sans-serif;
+        font-weight: 700;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        text-decoration: none;
+        color: #fff;
+        letter-spacing: 1rem;
+        cursor: default;
+      }
+      h1::before,
+      h1::after {
+        display: block;
+        content: '404';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0.8;
+      }
+      h1::before {
+        color: #0ff;
+        z-index: -1;
+        animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
+          infinite;
+      }
+      h1::after {
+        color: #f0f;
+        z-index: -2;
+        animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both
+          infinite;
+      }
+      @keyframes glitch {
+        0% {
+          transform: translate(0);
+        }
+        20% {
+          transform: translate(-5px, 5px);
+        }
+        40% {
+          transform: translate(-5px, -5px);
+        }
+        60% {
+          transform: translate(5px, 5px);
+        }
+        80% {
+          transform: translate(5px, -5px);
+        }
+        to {
+          transform: translate(0);
+        }
+      }
+      .link {
+        position: absolute;
+        bottom: 10%;
+        color: #fff;
+      }
+      .wrapper a {
+        color: #fff;
+      }
+      .wrapper a:hover {
+        text-decoration: none;
+      }
+      .logo {
+        fill: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>404</h1>
+      <div class="link">
+        <p>go to <a href="/">toppage</a>.</p>
+        <a href="/"> logo </a>
+      </div>
+    </div>
+  </body>
+</html>
