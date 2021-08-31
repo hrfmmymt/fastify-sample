@@ -99,7 +99,7 @@ ul {
   width: 6rem;
 }
 
-.header-logo {
+.logo {
   fill: var(--text-color);
 }
 
@@ -232,6 +232,12 @@ ul {
   word-break: break-all;
 }
 
+.post-article img,
+.post-article video {
+  height: auto;
+  width: 100%;
+}
+
 .post-article code {
   border: 1px solid #ddd;
   background-color: var(--code-background-color);
@@ -273,10 +279,6 @@ ul {
 
 .post-article .description {
   font-size: 0.9rem;
-}
-
-.post-article .social {
-  margin-top: 3rem;
 }
 
 /* highlight.js */
@@ -378,11 +380,5 @@ ul {
 
   .profile h2 {
     margin: 1rem 0;
-  }
-
-  .post-article img,
-  .post-article video {
-    height: auto;
-    width: 100%;
   }
 }
