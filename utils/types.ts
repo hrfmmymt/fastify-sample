@@ -3,5 +3,5 @@ export type PostInfo = {
   description: string;
   date: string;
   url: string;
-  html: string;
+  html: string | null;
 };
