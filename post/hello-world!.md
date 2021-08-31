@@ -17,22 +17,21 @@ aaaaaaaaaaa
 
 ## video
 ```html
-<div class="amp-video-wrapper">
-  <amp-video controls
+<div class="video-wrapper">
+  <video controls
     preload="metadata"
     width="640"
     height="360"
-    layout="responsive"
-    poster="/static/videos/poster/test.png"
+    poster="public/videos/poster/test.png"
     title="video-test">
-    <source src="/static/videos/webm/test.webm"
+    <source src="public/videos/webm/test.webm"
       type="video/webm" />
-    <source src="/static/videos/test.mp4"
+    <source src="public/videos/test.mp4"
       type="video/mp4" />
     <div fallback>
       <p>This browser does not support the video element.</p>
     </div>
-  </amp-video>
+  </video>
 </div>
 ```
 
@@ -42,11 +41,11 @@ aaaaaaaaaaa
     width="640"
     height="360"
     layout="responsive"
-    poster="/static/videos/poster/test.png"
+    poster="public/videos/poster/test.png"
     title="video-test">
-    <source src="/static/videos/webm/test.webm"
+    <source src="public/videos/webm/test.webm"
       type="video/webm" />
-    <source src="/static/videos/test.mp4"
+    <source src="public/videos/test.mp4"
       type="video/mp4" />
     <div fallback>
       This browser does not support the video element.
@@ -55,9 +54,9 @@ aaaaaaaaaaa
 </div>
 
 ```sh
-![video-test](/static/videos/test.mp4=640x360)
+![video-test](public/videos/test.mp4=640x360)
 ```
-![video-test](/static/videos/test.mp4=640x360)
+![video-test](public/videos/test.mp4=640x360)
 
 ```html
 <iframe src="https://open.spotify.com/embed/user/hrfmmymt/playlist/4rmnvhEv080DI0AX0XqfqD"
