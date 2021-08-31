@@ -379,4 +379,10 @@ ul {
   .profile h2 {
     margin: 1rem 0;
   }
+
+  .post-article img,
+  .post-article video {
+    height: auto;
+    width: 100%;
+  }
 }

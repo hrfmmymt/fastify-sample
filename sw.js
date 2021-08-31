@@ -22,14 +22,18 @@ const URLS_TO_CACHE = [
   "./public/img/post/20210829_01.jpg",
   "./public/img/post/20210829_02.jpg",
   "./public/img/post/PXL_20210809_112724993.PORTRAIT.jpg",
-  "./public/img/post/raw/PXL_20210809_112724993.PORTRAIT.jpg",
+  "./public/img/post/raw/20210829_01.jpg",
+  "./public/img/post/raw/20210829_02.jpg",
   "./public/img/post/webp/20210829_01.webp",
   "./public/img/post/webp/20210829_02.webp",
   "./public/img/post/webp/PXL_20210809_112724993.PORTRAIT.webp",
   "./public/img/profile/profile.jpg",
   "./public/img/profile/profile.webp",
   "./public/js/script.js",
-  "./public/manifest.json"
+  "./public/manifest.json",
+  "./public/videos/poster/kitakyushu-2019-01.png",
+  "./public/videos/poster/test.jpg",
+  "./public/videos/poster/test.png"
 ];
 
 self.addEventListener('install', (event) => {
