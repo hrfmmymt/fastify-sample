@@ -71,41 +71,37 @@ function build(opts = {}) {
       name: post,
       ext: '.md',
     });
-
     const filePath = config.postDir + fileName;
-    try {
-      fs.statSync(filePath);
-    } catch (err) {
-      if (err.code === 'ENOENT') {
-        reply.code(404).view('./templates/page/404.njk');
-      }
-    }
 
-    getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
-      reply.view('./templates/page/post.njk', {
-        postList: null,
-        head: {
-          author: metadata.author,
-          description: postInfo.description,
-          favicon: metadata.favicon,
-          ogImage: metadata.ogImage,
-          ogType: 'article',
-          title: `${postInfo.title} | ${metadata.title}`,
-          twitterAccount: metadata.twitterAccount,
-          twitterImage: metadata.ogImage,
-          twitterSite: metadata.twitterAccount,
-          twitterCard: metadata.twitterAccount,
-          url: `${metadata.url}${postInfo.url}`,
-          year: config.currentYear,
-        },
-        post: {
-          contents: postInfo.html,
-        },
-        footer: {
-          year: config.currentYear,
-        },
+    if (fs.existsSync(filePath)) {
+      getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
+        reply.view('./templates/page/post.njk', {
+          postList: null,
+          head: {
+            author: metadata.author,
+            description: postInfo.description,
+            favicon: metadata.favicon,
+            ogImage: metadata.ogImage,
+            ogType: 'article',
+            title: `${postInfo.title} | ${metadata.title}`,
+            twitterAccount: metadata.twitterAccount,
+            twitterImage: metadata.ogImage,
+            twitterSite: metadata.twitterAccount,
+            twitterCard: metadata.twitterAccount,
+            url: `${metadata.url}${postInfo.url}`,
+            year: config.currentYear,
+          },
+          post: {
+            contents: postInfo.html,
+          },
+          footer: {
+            year: config.currentYear,
+          },
+        });
       });
-    });
+    } else {
+      reply.code(404).view('./templates/page/404.njk');
+    }
   });
 
   app.get('/api', (_req, reply) => {
