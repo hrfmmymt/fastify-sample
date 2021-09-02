@@ -4,6 +4,7 @@ const OFFLINEFALLBACKPAGE = './public/offline.html';
 const URLS_TO_CACHE = [
   "./",
   "./sw.js",
+  "./hande-404",
   "./ESM%E5%AF%BE%E5%BF%9C%E3%81%B8%E3%81%AE%E6%87%B8%E5%BF%B5",
   "./hello-world!",
   "./0",
