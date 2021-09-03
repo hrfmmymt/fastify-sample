@@ -10,5 +10,6 @@ yarn-error.log*
 .nyc_output
 coverage
 raw
+videos
 
 .vercel
