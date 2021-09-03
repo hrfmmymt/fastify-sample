@@ -22,11 +22,9 @@ aaaaaaaaaaa
     preload="metadata"
     width="640"
     height="360"
-    poster="public/videos/poster/test.png"
+    poster="https://user-images.githubusercontent.com/4241290/131988834-79b76fd9-345e-4a58-84cd-1ab4809df1f6.png"
     title="video-test">
-    <source src="public/videos/webm/test.webm"
-      type="video/webm" />
-    <source src="public/videos/test.mp4"
+    <source src="https://user-images.githubusercontent.com/4241290/131988806-9bf0744d-7069-4c37-a70b-466460caa26f.mp4"
       type="video/mp4" />
     <div fallback>
       <p>This browser does not support the video element.</p>
@@ -41,22 +39,15 @@ aaaaaaaaaaa
     width="640"
     height="360"
     layout="responsive"
-    poster="public/videos/poster/test.png"
+    poster="https://user-images.githubusercontent.com/4241290/131988834-79b76fd9-345e-4a58-84cd-1ab4809df1f6.png"
     title="video-test">
-    <source src="public/videos/webm/test.webm"
-      type="video/webm" />
-    <source src="public/videos/test.mp4"
+    <source src="https://user-images.githubusercontent.com/4241290/131988806-9bf0744d-7069-4c37-a70b-466460caa26f.mp4"
       type="video/mp4" />
     <div fallback>
       This browser does not support the video element.
     </div>
   </video>
 </div>
-
-```sh
-![video-test](public/videos/test.mp4=640x360)
-```
-![video-test](public/videos/test.mp4=640x360)
 
 ```html
 <iframe src="https://open.spotify.com/embed/user/hrfmmymt/playlist/4rmnvhEv080DI0AX0XqfqD"
