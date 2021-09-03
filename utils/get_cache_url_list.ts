@@ -4,7 +4,7 @@ import * as glob from 'glob';
 import { PostInfo } from './types';
 
 const PUBLIC_DIR = 'public/';
-const STATIC_CACHE_URL_LIST = ['./', './sw.js'];
+const STATIC_CACHE_URL_LIST = ['./', './offline'];
 
 const getCacheUrlList = (): void => {
   const postList = JSON.parse(fs.readFileSync('./post-list.json', 'utf8'));
@@ -18,7 +18,7 @@ const getCacheUrlList = (): void => {
   const cacheUrlList = STATIC_CACHE_URL_LIST.concat(postAndStaticFiles);
   const cacheUrlListString = JSON.stringify(cacheUrlList, null, '  ');
 
-  fs.readFile('./sw.js', 'utf8', (err, data) => {
+  fs.readFile('./public/sw.js', 'utf8', (err, data) => {
     if (err) return console.log(err);
 
     const existingList =
@@ -28,7 +28,7 @@ const getCacheUrlList = (): void => {
       cacheUrlListString
     );
 
-    fs.writeFile('./sw.js', replaceCacheUrlResult, 'utf8', (err) => {
+    fs.writeFile('./public/sw.js', replaceCacheUrlResult, 'utf8', (err) => {
       if (err) return console.log(err);
     });
   });

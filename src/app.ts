@@ -109,9 +109,13 @@ function build(opts = {}) {
   });
 
   app.get('/sw.js', (_req, reply) => {
-    fs.readFile('./sw.js', 'utf-8', (err, fileBuffer) => {
+    fs.readFile('./public/sw.js', 'utf-8', (err, fileBuffer) => {
       reply.type('text/javascript').send(err || fileBuffer);
     });
+  });
+
+  app.get('/offline', (_req, reply: any) => {
+    reply.view('./templates/page/offline.njk');
   });
 
   app.get('/favicon.ico', (_req, reply) => {
