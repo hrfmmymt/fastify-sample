@@ -7,13 +7,7 @@
 aaaaaaaaaaa
 
 ## img
-![eye-catch](public/img/post/20210829_01.jpg=780x1040)
-
-## youtube
-
-## soundcloud
-
-## instagram
+![eye-catch](https://lh3.googleusercontent.com/pw/AM-JKLVXUJtGnnBBN5SaVbSpSAynOiedhj-Jmj5WikYx2HXdnkFW8sRzZzsVoa-UGd5kDTAFQEkUGssvtbQLxqZSkmTeq6Cy_vPMhAsdi_L8NaWItXn3E0X98VtzrHFHS-NGijH4mxkitmbWn63ESli4Rvlndg=w780-h1386)
 
 ## video
 ```html
