@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { PostInfo } from './types';
 // @ts-ignore
 const marked = require('marked');
+// @ts-ignore
+const hljs = require('highlight.js');
 
+import { PostInfo } from './types';
 import { markedCustomRender } from './marked_custom_render';
 
 const postDir = path.join(__dirname, '../post/');
@@ -38,10 +40,8 @@ export const getPostInfo = function ({
 
       marked.setOptions({
         gfm: true,
-        highlight: (code: any, lang: any) => {
-          const hljs = require('highlight.js');
-          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-          return hljs.highlight(code, { language }).value;
+        highlight(code: any, lang: any) {
+          return hljs.highlightAuto(code, [lang]).value;
         },
       });
 
