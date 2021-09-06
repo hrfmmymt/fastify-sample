@@ -52,18 +52,8 @@ const fromCache = (request) =>
     .then((cache) =>
       cache
         .match(request)
-        .then((matching) => matching || cache.match('/offline'))
+        .then((matching) => matching || cache.match('./offline.html'))
     );
-
-// const update = (request) => {
-//   return caches.open(VERSION + CACHENAME).then((cache) => {
-//     return fetch(request).then(function (response) {
-//       return cache.put(request, response.clone()).then(() => {
-//         return response;
-//       });
-//     });
-//   });
-// };
 
 const update = (request) =>
   caches
