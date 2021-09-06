@@ -8,6 +8,7 @@
     "build-sw": "ts-node-dev utils/get_cache_url_list",
     "css": "postcss -c postcss.config.js -o ./templates/partial/style.njk ./src/css/style.css",
     "css-w": "postcss -c postcss.config.js -o ./templates/partial/style.njk ./src/css/style.css -w",
+    "deploy-prd": "vercel --token $VERCEL_TOKEN --prod --confirm",
     "dev": "ts-node-dev index.ts",
     "get-post-info": "tsc utils/get_post_info.ts",
     "get-post-list": "run-s get-post-info run-get-post-list",
@@ -18,7 +19,8 @@
     "tsc-all": "tsc -p tsconfig.json",
     "vercel": "vercel",
     "vercel-dev": "vercel dev",
-    "webp": "node ./utils/webp.js"
+    "webp": "node ./utils/webp.js",
+    "vercel-env": "vercel env"
   },
   "keywords": [],
   "author": "hrfmmymt",
