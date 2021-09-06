@@ -100,7 +100,22 @@ function build(opts = {}) {
         });
       });
     } else {
-      reply.code(404).view('./templates/page/404.njk');
+      reply.code(404).view('./templates/page/404.njk', {
+        head: {
+          author: metadata.author,
+          description: `404, page not found | ${metadata.description}`,
+          favicon: metadata.favicon,
+          ogImage: metadata.ogImage,
+          ogType: 'website',
+          title: `404 | ${metadata.title}`,
+          twitterAccount: metadata.twitterAccount,
+          twitterImage: metadata.ogImage,
+          twitterSite: metadata.twitterAccount,
+          twitterCard: metadata.twitterAccount,
+          url: `${metadata.url}${post}`,
+          year: config.currentYear,
+        },
+      });
     }
   });
 
@@ -112,10 +127,6 @@ function build(opts = {}) {
     fs.readFile('./public/sw.js', 'utf-8', (err, fileBuffer) => {
       reply.type('text/javascript').send(err || fileBuffer);
     });
-  });
-
-  app.get('/offline', (_req, reply: any) => {
-    reply.view('./templates/page/offline.njk');
   });
 
   app.get('/favicon.ico', (_req, reply) => {
