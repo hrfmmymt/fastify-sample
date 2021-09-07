@@ -4,7 +4,7 @@ const URLS_TO_CACHE = [
   "./",
   "./offline",
   "./handle-404",
-  "./ESM%E5%AF%BE%E5%BF%9C%E3%81%B8%E3%81%AE%E6%87%B8%E5%BF%B5",
+  "./%E3%83%88%E3%82%A5%E3%83%BC%E3%83%89%E3%82%A5%E3%83%BC",
   "./hello-world!",
   "./0",
   "./1",
