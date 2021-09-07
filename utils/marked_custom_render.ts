@@ -64,7 +64,7 @@ function markedRenderEm() {
   renderer.em = (text: string) => {
     let postDate, postDescription;
     if ((postDate = /^date:(\d{4}-\d{2}-\d{2})/.exec(text)) !== null) {
-      const dateStr = postDate[0].replace('date:', '');
+      const dateStr = postDate[1];
       return `<time datetime="${dateStr}">${dateStr}</time>`;
     }
     if ((postDescription = /^desc&gt;\s.*/.exec(text)) !== null) {
