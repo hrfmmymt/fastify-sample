@@ -1,5 +1,5 @@
-const CACHENAME = '::iiyatsu_serviceworkerr';
-const VERSION = 'v0.0.1';
+const CACHE_NAME = '::iiyatsu_serviceworker';
+const CACHE_VERSION = 0;
 const URLS_TO_CACHE = [
   "./",
   "./offline",
@@ -30,7 +30,7 @@ self.addEventListener('install', (event) => {
   console.log('The service worker is being installed.');
   self.skipWaiting();
   event.waitUntil(
-    caches.open(VERSION + CACHENAME).then((cache) => {
+    caches.open(`v${CACHE_VERSION}${CACHE_NAME}`).then((cache) => {
       cache.addAll(URLS_TO_CACHE);
     }, console.err)
   );
@@ -48,7 +48,7 @@ const fromNetwork = (request, timeout) =>
 
 const fromCache = (request) =>
   caches
-    .open(VERSION + CACHENAME)
+    .open(`v${CACHE_VERSION}${CACHE_NAME}`)
     .then((cache) =>
       cache
         .match(request)
@@ -57,7 +57,7 @@ const fromCache = (request) =>
 
 const update = (request) =>
   caches
-    .open(VERSION + CACHENAME)
+    .open(`v${CACHE_VERSION}${CACHE_NAME}`)
     .then((cache) =>
       fetch(request).then((response) => cache.put(request, response))
     );

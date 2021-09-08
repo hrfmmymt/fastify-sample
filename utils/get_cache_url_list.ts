@@ -30,14 +30,23 @@ const getCacheUrlList = (): void => {
 
     const existingList =
       data.match(/const URLS_TO_CACHE = ([\s\S]*?.+)\;/) ?? [];
-    const replaceCacheUrlResult = data.replace(
-      existingList[1],
-      cacheUrlListString
-    );
 
-    fs.writeFile('./public/sw.js', replaceCacheUrlResult, 'utf8', (err) => {
-      if (err) return console.log(err);
-    });
+    if (cacheUrlListString !== existingList[1]) {
+      const existingVersion =
+        data.match(/const CACHE_VERSION = ([\s\S]*?.+)\;/) ?? '';
+      const nextVersionNumber = Number(existingVersion[1]) + 1;
+
+      const replacement = data.replace(
+        `const CACHE_VERSION = ${existingVersion[1]};\nconst URLS_TO_CACHE = ${existingList[1]};`,
+        `const CACHE_VERSION = ${nextVersionNumber}\nconst URLS_TO_CACHE = ${cacheUrlListString};`
+      )
+
+      fs.writeFile('./public/sw.js', replacement, 'utf8', (err) => {
+        if (err) return console.log(err);
+      });
+    } else {
+      console.log('no changes to sw.js')
+    }
   });
 };
 
