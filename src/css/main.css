@@ -1,5 +1,5 @@
 /*
- *common and initial settings
+ * common and initial settings
  */
 a,
 article,
@@ -50,6 +50,7 @@ body {
   text-rendering: optimizeLegibility;
   background-color: var(--page-background-color);
   color: var(--text-color);
+  padding-bottom: 4rem;
 }
 
 a {
@@ -109,13 +110,6 @@ ul {
   max-width: 32rem;
   margin: 0 auto;
   padding: 0 1rem;
-}
-
-.footer {
-  margin-top: 2.4rem;
-  padding: 1rem;
-  font-size: small;
-  text-align: center;
 }
 
 /*
