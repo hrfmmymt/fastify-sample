@@ -44,13 +44,13 @@ html {
 }
 
 body {
+  background-color: var(--page-background-color);
+  color: var(--text-color);
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  background-color: var(--page-background-color);
-  color: var(--text-color);
   padding-bottom: 4rem;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -73,8 +73,8 @@ ul {
 .post-article,
 .footer,
 .header {
-  margin: 0 auto;
   line-height: 2;
+  margin: 0 auto;
 }
 
 .header {
@@ -87,17 +87,17 @@ ul {
   letter-spacing: 0.05rem;
 }
 
+.header-title .header-title-link {
+  display: block;
+  margin: 0 auto;
+  width: 6rem;
+}
+
 .header-title .header-title-link,
 .footer .footer-link,
 .header-title .header-title-link:visited,
 .footer .footer-link:visited {
   color: inherit;
-}
-
-.header-title .header-title-link {
-  display: block;
-  margin: 0 auto;
-  width: 6rem;
 }
 
 .logo {
@@ -107,8 +107,8 @@ ul {
 .post-list,
 .profile > *,
 .post-article {
-  max-width: 32rem;
   margin: 0 auto;
+  max-width: 32rem;
   padding: 0 1rem;
 }
 
@@ -148,8 +148,8 @@ ul {
 }
 
 .profile-img {
-  padding: 0;
   border-radius: 50%;
+  padding: 0;
 }
 
 /* post list */
@@ -170,8 +170,8 @@ ul {
 .post-meta,
 .post-article time,
 .post-article .description {
-  font-weight: 400;
   color: var(--text-color-sub);
+  font-weight: 400;
   word-wrap: break-word;
 }
 
@@ -196,13 +196,13 @@ ul {
 }
 
 .post-article h2 {
-  margin-bottom: 1rem;
   border-bottom: 1px solid;
+  margin-bottom: 1rem;
 }
 
 .post-article h3 {
-  margin-top: 0.5rem;
   margin-bottom: -1rem;
+  margin-top: 0.5rem;
 }
 
 .post-article h4 {
@@ -218,12 +218,12 @@ ul {
   text-decoration: underline;
 }
 
-.post-article a:hover {
-  text-decoration: none;
-}
-
 .post-article li a {
   word-break: break-all;
+}
+
+.post-article a:hover {
+  text-decoration: none;
 }
 
 .post-article img,
@@ -233,27 +233,27 @@ ul {
 }
 
 .post-article code {
-  border: 1px solid #ddd;
   background-color: var(--code-background-color);
+  border: 1px solid #ddd;
   border-radius: 2px;
-  padding: 0.1em;
   margin: 1.4em 0;
+  padding: 0.1em;
 }
 
 .post-article pre > code {
-  overflow: auto;
-  display: block;
-  padding: 0.6em;
-  margin: 0;
-  border: none;
   background-color: var(--code-background-color);
+  border: none;
+  display: block;
+  margin: 0;
+  overflow: auto;
+  padding: 0.6em;
 }
 
 .post-article blockquote {
-  padding: 0 1em;
-  margin: 1em 0;
-  color: var(--text-color-sub);
   border-left: 0.25em solid #dfe2e5;
+  color: var(--text-color-sub);
+  margin: 1em 0;
+  padding: 0 1em;
   word-wrap: break-word;
 }
 
@@ -277,10 +277,10 @@ ul {
 
 /* highlight.js */
 .hljs {
+  background: #f0f0f0;
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #f0f0f0;
 }
 
 .hljs,
@@ -368,8 +368,8 @@ ul {
   }
 
   .profile-img {
-    max-width: 80px;
     max-height: 80px;
+    max-width: 80px;
   }
 
   .profile h2 {
