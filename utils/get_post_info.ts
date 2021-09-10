@@ -51,6 +51,8 @@ export const getPostInfo = function ({
         date,
         url,
         html,
+        prevPost: {},
+        nextPost: {},
       });
     });
   });
