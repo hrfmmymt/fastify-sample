@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { getPostInfo } from '../utils/get_post_info';
+import { PostInfo } from '../utils/types';
 
 const COMMON_TITLE = "iiyatsu - hrfmmymt's weblog";
 const PUBLIC_URL = 'https://iiyatsu.hrfmmymt.com/';
@@ -71,8 +72,11 @@ function build(opts = {}) {
 
     if (fs.existsSync(filePath)) {
       getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
+        const thisPostIndex = config.postList.findIndex((post: PostInfo) => post.url === postInfo.url);
+        const nextPost: PostInfo | undefined = config.postList[thisPostIndex - 1];
+        const prevPost: PostInfo | undefined = config.postList[thisPostIndex + 1];
+
         reply.view('./templates/page/post.njk', {
-          postList: null,
           head: {
             author: metadata.author,
             description: postInfo.description,
@@ -85,6 +89,8 @@ function build(opts = {}) {
           },
           post: {
             contents: postInfo.html,
+            nextPost: nextPost,
+            prevPost: prevPost,
           },
           footer: {
             year: config.currentYear,
