@@ -55,11 +55,6 @@ body {
 
 a {
   color: var(--text-color-anchor);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 a:visited {
@@ -105,8 +100,7 @@ ul {
 }
 
 .post-list,
-.profile > *,
-.post-article {
+.profile > * {
   margin: 0 auto;
   max-width: 32rem;
   padding: 0 1rem;
@@ -139,14 +133,6 @@ ul {
   margin-right: 1rem;
 }
 
-.profile-list-link {
-  text-decoration: underline;
-}
-
-.profile-list-link:hover {
-  text-decoration: none;
-}
-
 .profile-img {
   border-radius: 50%;
   padding: 0;
@@ -175,14 +161,6 @@ ul {
   word-wrap: break-word;
 }
 
-.post-link:hover {
-  text-decoration: none;
-}
-
-.post-link:hover .post-title {
-  text-decoration: underline;
-}
-
 .post-date,
 .post-article time {
   font-size: 0.8rem;
@@ -191,6 +169,15 @@ ul {
 /*
  * post page
  */
+.post-article,
+.post-recent {
+  max-width: 32rem;
+}
+
+.post-article {
+  margin: 0 auto;
+}
+
 .post-article h1 {
   font-size: 2rem;
 }
@@ -273,6 +260,10 @@ ul {
 
 .post-article .description {
   font-size: 0.9rem;
+}
+
+.post-recent {
+  margin: 3rem auto;
 }
 
 /* highlight.js */
@@ -374,5 +365,10 @@ ul {
 
   .profile h2 {
     margin: 1rem 0;
+  }
+
+  .post-article,
+  .post-recent {
+    padding: 0 1rem;
   }
 }
