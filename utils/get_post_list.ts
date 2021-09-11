@@ -4,11 +4,9 @@ import * as path from 'path';
 import { getPostInfo } from './get_post_info';
 import { PostInfo } from './types';
 
-// @ts-ignore: Identifier '__dirname' has already been declared
 const postDir = path.join(__dirname, '../post/');
 
 async function generatePostList() {
-  // @ts-ignore: Identifier '__dirname' has already been declared
   const dist = path.join(__dirname, '../');
   const files = await fs.readdir(postDir);
   const posts = files.map((file: string) =>
@@ -33,14 +31,14 @@ async function generatePostList() {
           title: prev.title,
           url: prev.url,
         }
-      : {};
+      : null;
 
     const nextPost = next
       ? {
           title: next.title,
           url: next.url,
         }
-      : {};
+      : null;
 
     arr[index].prevPost = prevPost;
     arr[index].nextPost = nextPost;

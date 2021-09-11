@@ -9,6 +9,6 @@ export type PostInfo = {
   date: string;
   url: string;
   html: string | null;
-  prevPost: RecentPost | {};
-  nextPost: RecentPost | {};
+  prevPost: RecentPost | null;
+  nextPost: RecentPost | null;
 };
