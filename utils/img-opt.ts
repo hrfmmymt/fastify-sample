@@ -18,12 +18,11 @@ function resizeDirectoryImages(
     width = Jimp.AUTO,
     height = Jimp.AUTO,
     recursive = false,
-  }: { width?: number; height?: number; recursive?: boolean }
+  }: { width?: number; height?: number; recursive?: boolean },
 ) {
   return new Promise((resolve, reject): void => {
     glob(
-      (recursive ? '**/' : '') +
-        '*.@(png|PNG|jpg|JPG|jpeg|JPEG|BMP|bmp|gif|GIF)',
+      (recursive ? '**/' : '') + '*.@(png|PNG|jpg|JPG|jpeg|JPEG|BMP|bmp|gif|GIF)',
       {
         nocase: true,
         nodir: true,
@@ -36,7 +35,7 @@ function resizeDirectoryImages(
         } else {
           resolve(files);
         }
-      }
+      },
     );
   }).then((files: any) => {
     if (files === null) return;
@@ -60,7 +59,7 @@ function resizeDirectoryImages(
               });
           });
         }).then(console.log);
-      })
+      }),
     );
   });
 }

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-export function checkFileExistence({filePath, reply}: {filePath: string, reply: any}) {
+export function checkFileExistence({ filePath, reply }: { filePath: string; reply: any }) {
   try {
     fs.statSync(filePath);
     return true;

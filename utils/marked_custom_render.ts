@@ -54,7 +54,7 @@ function markedRenderImage() {
     //   )}" width="${width}" height="${height}" />
     // </picture>`;
     return `<img src="${mySrc}" alt="${sanitize(
-      alt
+      alt,
     )}" width="${width}" height="${height}" loading="lazy" />`;
     // }
   };

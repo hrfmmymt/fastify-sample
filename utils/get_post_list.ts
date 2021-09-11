@@ -9,9 +9,7 @@ const postDir = path.join(__dirname, '../post/');
 async function generatePostList() {
   const dist = path.join(__dirname, '../');
   const files = await fs.readdir(postDir);
-  const posts = files.map((file: string) =>
-    getPostInfo({ fileName: file, withHtml: true })
-  );
+  const posts = files.map((file: string) => getPostInfo({ fileName: file, withHtml: true }));
   const postList: PostInfo[] = await Promise.all(posts);
 
   const sortedPostList = postList.sort((a, b) => {
@@ -22,29 +20,32 @@ async function generatePostList() {
     return 0;
   });
 
-  const masterPostList = sortedPostList.reduce((acc: any, cur: any, index: number, arr: PostInfo[]): PostInfo[] => {
-    const prev = arr[index + 1] || null;
-    const next = arr[index - 1] || null;
+  const masterPostList = sortedPostList.reduce(
+    (acc: any, cur: any, index: number, arr: PostInfo[]): PostInfo[] => {
+      const prev = arr[index + 1] || null;
+      const next = arr[index - 1] || null;
 
-    const prevPost = prev
-      ? {
-          title: prev.title,
-          url: prev.url,
-        }
-      : null;
+      const prevPost = prev
+        ? {
+            title: prev.title,
+            url: prev.url,
+          }
+        : null;
 
-    const nextPost = next
-      ? {
-          title: next.title,
-          url: next.url,
-        }
-      : null;
+      const nextPost = next
+        ? {
+            title: next.title,
+            url: next.url,
+          }
+        : null;
 
-    arr[index].prevPost = prevPost;
-    arr[index].nextPost = nextPost;
+      arr[index].prevPost = prevPost;
+      arr[index].nextPost = nextPost;
 
-    return arr;
-  }, []);
+      return arr;
+    },
+    [],
+  );
 
   fs.writeFile(`${dist}post-list.json`, JSON.stringify(masterPostList, null, '  '));
 }

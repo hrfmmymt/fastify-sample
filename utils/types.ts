@@ -1,7 +1,7 @@
 type RecentPost = {
   title: string;
   url: string;
-}
+};
 
 export type PostInfo = {
   title: string;

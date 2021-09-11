@@ -11,15 +11,12 @@ const PUBLIC_URL = 'https://iiyatsu.hrfmmymt.com/';
 const config = {
   currentYear: new Date().getFullYear(),
   postDir: path.join(__dirname, '../post/'),
-  postList: JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../post-list.json'), 'utf8')
-  ),
+  postList: JSON.parse(fs.readFileSync(path.join(__dirname, '../post-list.json'), 'utf8')),
 };
 
 const metadata = {
   author: 'hrfmmymt',
-  copyright:
-    'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
+  copyright: 'Copyright &copy; 2021 fastify-sample of hrfmmymt All Rights Reserved.',
   description: "hrfmmymt's weblog",
   ogImage: 'public/img/icon/icon.png',
   favicon: 'public/img/icon/favicon.ico',
