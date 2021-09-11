@@ -72,10 +72,6 @@ function build(opts = {}) {
 
     if (fs.existsSync(filePath)) {
       getPostInfo({ fileName, withHtml: true }).then((postInfo) => {
-        const thisPostIndex = config.postList.findIndex((post: PostInfo) => post.url === postInfo.url);
-        const nextPost: PostInfo | undefined = config.postList[thisPostIndex - 1];
-        const prevPost: PostInfo | undefined = config.postList[thisPostIndex + 1];
-
         reply.view('./templates/page/post.njk', {
           head: {
             author: metadata.author,
@@ -89,8 +85,8 @@ function build(opts = {}) {
           },
           post: {
             contents: postInfo.html,
-            nextPost: nextPost,
-            prevPost: prevPost,
+            nextPost: postInfo.nextPost,
+            prevPost: postInfo.prevPost,
           },
           footer: {
             year: config.currentYear,
